@@ -16,6 +16,7 @@ let yellowSpots = [];
 let turnCounter = 0;
 let time = 0;
 let automaticRow = 1;
+let opponent;
 
 const setIntervalHandler = () => {
   if (time === 0) {
@@ -32,13 +33,13 @@ const setIntervalHandler = () => {
   } else time = 31;
 };
 
-const loadBoardHandler = () => {
+const loadBoardHandler = (type) => {
   if (board.childElementCount !== 42) {
     for (let i = 0; i < 42; i++) {
       const place = document.createElement("div");
       place.className = "spot";
       board.appendChild(place);
-      place.addEventListener("click", vsBotFillBoardHandler);
+      place.addEventListener("click", type);
       columns[i % 7].push(place);
     }
   }
@@ -95,12 +96,12 @@ const vsPlayerFillBoardHandler = (evt) => {
 };
 
 const vsBotFillBoardHandler = (evt) => {
-  const botTime = Math.floor(Math.random() * 30000) ;
+  const botTime = Math.floor(Math.random() * 100);
   vsPlayerFillBoardHandler(evt),
-  setTimeout(() => {
-    automaticFillBoardHandler()
-  }, botTime)
-}
+    setTimeout(() => {
+      automaticFillBoardHandler();
+    }, botTime);
+};
 
 const automaticFillBoardHandler = () => {
   let counter = 0;
@@ -230,30 +231,42 @@ const rulesOpener = () => {
   visibilityHandler.call(rules);
 };
 const backToMenu = () => {
-  if (rules.style.display == "block") {
+  if (rules.style.display === "block") {
     visibilityHandler.call(rules);
     visibilityHandler.call(content);
   }
-  if (game.style.display == "block") {
+  if (game.style.display === "block") {
     visibilityHandler.call(game);
     visibilityHandler.call(content);
-    restartHandler();
+    restartHandler(false);
   }
 };
-const gameOpener = () => {
-  loadBoardHandler();
+const gameOpener = (evt) => {
+  if (evt.target.textContent.includes("CPU")) {
+    opponent = false;
+  }
+  if (evt.target.textContent.includes("PLAYER")) {
+    opponent = true;
+  }
+  opponent
+    ? loadBoardHandler(vsPlayerFillBoardHandler)
+    : loadBoardHandler(vsBotFillBoardHandler);
   visibilityHandler.call(content);
   visibilityHandler.call(game);
 };
 
-const restartHandler = () => {
+const restartHandler = (directRestart) => {
   board.replaceChildren("");
   columns = [[], [], [], [], [], [], []];
   yellowSpots = [];
   redSpots = [];
   turnCounter = 0;
   automaticRow = 1;
-  loadBoardHandler();
+  if (directRestart) {
+    opponent
+      ? loadBoardHandler(vsPlayerFillBoardHandler)
+      : loadBoardHandler(vsBotFillBoardHandler);
+  }
   setIntervalHandler();
 };
 
@@ -262,4 +275,6 @@ rulesCloser.addEventListener("click", backToMenu);
 vsPlayerBtn.addEventListener("click", gameOpener);
 vsBotBtn.addEventListener("click", gameOpener);
 menuBtn.addEventListener("click", backToMenu);
-restartBtn.addEventListener("click", restartHandler);
+restartBtn.addEventListener("click", () => {
+  restartHandler(true);
+});
