@@ -1,0 +1,260 @@
+* {
+  margin: 0;
+  padding: 0;
+  font: 100% Comic Sans, cursive;
+}
+body {
+  background: rgb(130 72 254);
+}
+
+.icon-circle {
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+  border-style: solid;
+  box-shadow: 0 0.125rem;
+}
+.yellow {
+  background-color: rgb(236 202 53);
+}
+.red {
+  background-color: rgb(245 110 110);
+}
+.white {
+  background-color: rgb(255 255 255);
+}
+span {
+  width: 2.6rem;
+  height: 1rem;
+  margin: 9rem auto;
+  display: grid;
+  grid-template-columns: 1.5rem 1.5rem;
+  grid-row-gap: 0.3rem;
+}
+#menu {
+  width: 18.5rem;
+  margin: 1rem auto;
+}
+.menu-button {
+  width: 17.8rem;
+  height: 3rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  padding-left: 0.8rem;
+  border-style: solid;
+  box-shadow: 0 0.3rem;
+  margin: 1rem 0;
+  font-weight: bold;
+}
+.face {
+  width: 1.7rem;
+  height: 1.7rem;
+  border: solid;
+  border-radius: 50%;
+  position: relative;
+  left: 3rem;
+}
+
+.face::before {
+  content: "";
+  border-style: solid;
+  position: absolute;
+  left: 0.45rem;
+  top: 0.4rem;
+  border-radius: 50%;
+  box-shadow: 0.45rem 0;
+}
+.smile::after {
+  content: "";
+  width: 0.8rem;
+  height: 0.4rem;
+  border-style: solid;
+  border-width: 0.1rem;
+  position: absolute;
+  top: 0.8rem;
+  left: 0.3rem;
+  border-bottom-left-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+  border-top: 0;
+}
+.sad::after {
+  content: "";
+  width: 0.9rem;
+  border-style: solid;
+  border-width: 0.1rem 0 0 0;
+  position: absolute;
+  top: 1rem;
+  left: 0.4rem;
+}
+.red-faces {
+  left: 4.9rem !important;
+}
+#rules {
+  display: none;
+  width: 18rem;
+  height: 35rem;
+  border: 0.2rem solid black;
+  border-radius: 1rem;
+  box-shadow: 0 0.3rem;
+  margin: 3.3rem auto;
+}
+#rules h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0.5rem 5.8rem;
+}
+#rules h3 {
+  font-weight: bold;
+  color: rgb(157 72 254);
+  margin: 1rem 0;
+}
+#objectives {
+  padding: 1rem;
+}
+ol {
+  padding-left: 1rem;
+}
+li {
+  padding: 0.2rem;
+}
+#back-icon {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  position: relative;
+  bottom: 2rem;
+  left: 7rem;
+  border: 0.2rem solid rgb(0 0 0);
+  box-shadow: 0 0.3rem;
+}
+#back-icon::before {
+  content: "";
+  width: 1rem;
+  height: 1rem;
+  border: 0.2rem solid rgb(255 255 255);
+  position: absolute;
+  left: 1.6rem;
+  top: 1.3rem;
+  transform: rotate(45deg);
+  border-top: 0;
+  border-right: 0;
+}
+section {
+  display: none;
+}
+
+.in-game-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 6rem;
+  height: 2rem;
+  border-radius: 2rem;
+  margin: 3rem auto;
+  background-color: rgb(104, 59, 201);
+  font-size: 0.9em;
+  color: rgb(255 255 255);
+}
+#in-game-menu {
+  display: grid;
+  padding: 0.6rem;
+  grid-template-columns: repeat(5, 1fr);
+}
+.player-name {
+  display: flex;
+  align-items: center;
+  width: 7.5rem;
+  height: 4rem;
+  margin: 0 auto;
+  border-radius: 1rem;
+  border: 0.1em solid black;
+  box-shadow: 0 0.3rem;
+  font-weight: bold;
+}
+#in-game-grid-1 {
+  grid-column: 1/3;
+}
+#in-game-grid-2 {
+  grid-column: 3/3;
+  margin: 2rem auto !important;
+}
+#in-game-grid-3 {
+  grid-column: 4/6;
+}
+#in-game-grid-4 {
+  grid-column: 1/3;
+  grid-row: 2/2;
+}
+#in-game-grid-5 {
+  grid-column: 4/6;
+  grid-row: 2/2;
+}
+.player-1 {
+  left: -0.5rem !important;
+}
+.player-2 {
+  left: 0.5rem !important;
+}
+#in-game-grid-5 p {
+  margin-left: 0.6rem;
+  font-weight: bold;
+}
+#board {
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(6, 3.1em);
+  width: 18rem;
+  height: 20rem;
+  margin: 1.5rem auto;
+  border-radius: 1rem;
+  border: 0.2rem solid black;
+  box-shadow: 0 0.3rem;
+}
+.spot {
+  width: 1.8rem;
+  height: 1.8rem;
+  padding: 0.08rem;
+  margin-left: 0.08rem;
+  border: 0.2rem solid black;
+  border-radius: 50%;
+  box-shadow: 0 0.35rem inset;
+  background-color: rgb(130 72 254);
+}
+.red-spot {
+  background-color: rgb(245 110 110) !important;
+  box-shadow: 0 0.25rem inset rgb(197, 88, 88) !important ;
+}
+.yellow-spot {
+  background-color: rgb(236 202 53) !important;
+  box-shadow: 0 0.25rem inset rgb(184, 158, 42) !important ;
+}
+#timer {
+  position: relative;
+  text-align: center;
+  height: 4.8rem;
+  width: 9.25rem;
+  top: 28rem;
+  right: 3.6rem;
+  border: 0.2rem solid black;
+  border-radius: 0.9rem;
+  box-shadow: 0 0.2rem black;
+  color: white;
+}
+
+#timer h4 {
+  margin-top: 1rem;
+  font-size: 2rem;
+}
+#background {
+  z-index: -1;
+  position: relative;
+  width: 18rem;
+  height: 13.5rem;
+  right: 4.3rem;
+  bottom: 10rem;
+  background-color: rgb(104, 59, 201);
+  border-radius: 50%;
+}

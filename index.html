@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ConnectFour</title>
+    <link rel="stylesheet" href="ConnectFour.css" />
+    <script src="ConnectFour.js" defer></script>
+  </head>
+  <body>
+    <main>
+      <span
+        ><div class="icon-circle red"></div>
+        <div class="icon-circle yellow"></div>
+        <div class="icon-circle yellow"></div>
+        <div class="icon-circle red"></div
+      ></span>
+      <div id="menu">
+        <div class="menu-button red">
+          PLAY VS CPU
+          <div class="face smile red-faces"></div>
+          <div class="face sad red-faces"></div>
+        </div>
+        <div class="menu-button yellow">
+          PLAY VS PLAYER
+          <div class="face smile"></div>
+          <div class="face smile"></div>
+        </div>
+        <div id="rules-button" class="menu-button white">RULES</div>
+      </div>
+    </main>
+    <div id="rules" class="white">
+      <h1>RULES</h1>
+      <div id="objectives">
+        <h3>OBJECTIVE</h3>
+        <p>
+          Be the first player to connect 4 of the same colored discs in a row
+          (either vertiaclly, horizontally, or diagonally).
+        </p>
+        <h3>HOW TO PLAY</h3>
+        <ol>
+          <li>Red goes first in the first game.</li>
+          <li>
+            Players must alternate turns, and only one disc can be dropped in
+            each turn.
+          </li>
+          <li>The game ends when there is a 4-in-a-row or stalemate.</li>
+          <li>
+            The starter of the previous game goes second on the next game.
+          </li>
+        </ol>
+      </div>
+      <div id="back-icon" class="red"></div>
+    </div>
+    <section>
+      <div id="in-game-menu">
+        <div class="in-game-button" id="in-game-grid-1">MENU</div>
+        <span id="in-game-grid-2"
+          ><div class="icon-circle red"></div>
+          <div class="icon-circle yellow"></div>
+          <div class="icon-circle yellow"></div>
+          <div class="icon-circle red"></div>
+          <div class="red" id="timer">
+            <h4 class="timer"></h4>
+            <div id="background"></div></div
+        ></span>
+        <div class="in-game-button" id="in-game-grid-3">RESTART</div>
+        <div class="player-name white" id="in-game-grid-4">
+          <div class="face smile red player-1"></div>
+          PLAYER 1
+        </div>
+        <div class="player-name white" id="in-game-grid-5">
+          <p>PLAYER 2</p>
+          <div class="face smile yellow player-2"></div>
+        </div>
+      </div>
+      <div class="white" id="board"></div>
+    </section>
+  </body>
+</html>
