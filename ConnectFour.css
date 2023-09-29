@@ -117,14 +117,14 @@ ol {
   padding-left: 1rem;
 }
 li {
-  padding: 0.2rem;
+  padding: 0.5rem;
 }
 #back-icon {
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
   position: relative;
-  bottom: 2rem;
+  top: 1rem;
   left: 7rem;
   border: 0.2rem solid rgb(0 0 0);
   box-shadow: 0 0.3rem;
@@ -255,6 +255,6 @@ section {
   height: 13.5rem;
   right: 4.3rem;
   bottom: 10rem;
-  background-color: rgb(104, 59, 201);
+  background-color: rgb(245 110 110);
   border-radius: 50%;
 }

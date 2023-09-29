@@ -9,6 +9,7 @@ const restartBtn = document.getElementById("in-game-grid-3");
 const board = document.getElementById("board");
 const game = document.querySelector("section");
 const timer = document.querySelector(".timer");
+const background = document.getElementById("background");
 
 let columns = [[], [], [], [], [], [], []];
 let redSpots = [];
@@ -18,7 +19,7 @@ let time = 0;
 let automaticRow = 1;
 let opponent;
 
-const setIntervalHandler = () => {
+const setIntervalHandler = (restarted) => {
   if (time === 0) {
     time = 31;
     const interval = setInterval(() => {
@@ -28,6 +29,9 @@ const setIntervalHandler = () => {
       if (time === 0) {
         automaticFillBoardHandler();
         clearInterval(interval);
+      }
+      if(restarted){
+        clearInterval(interval)
       }
     }, 1000);
   } else time = 31;
@@ -45,7 +49,7 @@ const loadBoardHandler = (type) => {
   }
   timer.textContent = time;
 
-  setIntervalHandler();
+  setIntervalHandler(false);
 };
 
 const vsPlayerFillBoardHandler = (evt) => {
@@ -61,6 +65,7 @@ const vsPlayerFillBoardHandler = (evt) => {
         return;
       }
       if (turnCounter % 2 === 0) {
+        background.style.backgroundColor = "rgb(236 202 53)";
         recent.classList.add("red-spot");
         redSpots.unshift([freeSpots.indexOf(recent), columns.indexOf(column)]);
         columnResultHandler(
@@ -73,6 +78,7 @@ const vsPlayerFillBoardHandler = (evt) => {
         );
         horizontalResultHandler(redSpots, "Red");
       } else {
+        background.style.backgroundColor = "rgb(245 110 110)";
         recent.classList.add("yellow-spot");
         yellowSpots.unshift([
           freeSpots.indexOf(recent),
@@ -92,7 +98,7 @@ const vsPlayerFillBoardHandler = (evt) => {
     }
   }
 
-  setIntervalHandler();
+  setIntervalHandler(false);
 };
 
 const vsBotFillBoardHandler = (evt) => {
@@ -119,8 +125,9 @@ const automaticFillBoardHandler = () => {
     return automaticFillBoardHandler();
   } else {
     if (turnCounter % 2 === 0) {
+      background.style.backgroundColor = "rgb(236 202 53)";
       board.children[board.children.length - number].classList.add("red-spot");
-      setIntervalHandler();
+      setIntervalHandler(false);
       redSpots.unshift([6 - automaticRow, 7 * automaticRow - number]);
       columnResultHandler(
         redSpots.filter((spots) => spots[1] === redSpots[0][1]),
@@ -132,10 +139,11 @@ const automaticFillBoardHandler = () => {
       );
       horizontalResultHandler(redSpots, "Red");
     } else {
+      background.style.backgroundColor = "rgb(245 110 110)";
       board.children[board.children.length - number].classList.add(
         "yellow-spot"
       );
-      setIntervalHandler();
+      setIntervalHandler(false);
       yellowSpots.unshift([6 - automaticRow, 7 * automaticRow - number]);
       columnResultHandler(
         yellowSpots.filter((spots) => spots[1] === yellowSpots[0][1]),
@@ -261,13 +269,14 @@ const restartHandler = (directRestart) => {
   yellowSpots = [];
   redSpots = [];
   turnCounter = 0;
+  background.style.backgroundColor = "rgb(245 110 110)";
   automaticRow = 1;
   if (directRestart) {
     opponent
       ? loadBoardHandler(vsPlayerFillBoardHandler)
       : loadBoardHandler(vsBotFillBoardHandler);
   }
-  setIntervalHandler();
+  setIntervalHandler(true);
 };
 
 rulesBtn.addEventListener("click", rulesOpener);
