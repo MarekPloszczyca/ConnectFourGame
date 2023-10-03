@@ -33,7 +33,7 @@ const setIntervalHandler = (restarted) => {
         clearInterval(interval);
       }
       if (restarted) {
-        clearInterval(interval);
+        return clearInterval(interval);
       }
     }, 1000);
   } else time = 31;
@@ -108,11 +108,15 @@ const botMoveHandler = () => {
   board.childNodes.forEach((child) => {
     child.removeEventListener("click", vsBotFillBoardHandler);
   });
+  restartBtn.removeEventListener("click", directRestart);
+  menuBtn.removeEventListener("click", backToMenu);
   setTimeout(() => {
     automaticFillBoardHandler();
     board.childNodes.forEach((child) => {
       child.addEventListener("click", vsBotFillBoardHandler);
     });
+    restartBtn.addEventListener("click", directRestart);
+    menuBtn.addEventListener("click", backToMenu);
   }, botTime);
 };
 
@@ -182,7 +186,9 @@ const columnResultHandler = (color, winner) => {
         columnCounter++;
       }
     }
-    columnCounter === 4 ? alert(`${winner} player won!`) : (columnCounter = 0);
+    columnCounter === 4
+      ? (timer.textContent = `${winner} player won!`)
+      : (columnCounter = 0);
   }
 };
 
@@ -198,7 +204,9 @@ const rowResultHandler = (color, winner) => {
         rowCounter++;
       }
     }
-    rowCounter === 4 ? alert(`${winner} player won!`) : (rowCounter = 0);
+    rowCounter === 4
+      ? (timer.textContent = `${winner} player won!`)
+      : (rowCounter = 0);
   }
 };
 
@@ -219,9 +227,9 @@ const horizontalResultHandler = (color, winner) => {
         horizontalCounter++;
       }
     }
-    if (horizontalCounter === 4) {
-      return alert(`${winner} player won`);
-    } else horizontalCounter = 0;
+    horizontalCounter === 4
+      ? (timer.textContent = `${winner} player won!`)
+      : (horizontalCounter = 0);
   }
   for (let l = 0; l <= 3; l++) {
     for (let i = 0; i <= 3; i++) {
@@ -234,9 +242,9 @@ const horizontalResultHandler = (color, winner) => {
         horizontalCounter++;
       }
     }
-    if (horizontalCounter === 4) {
-      return alert(`${winner} player won`);
-    } else horizontalCounter = 0;
+    horizontalCounter === 4
+      ? (timer.textContent = `${winner} player won!`)
+      : (horizontalCounter = 0);
   }
 };
 
@@ -283,6 +291,7 @@ const restartHandler = (directRestart) => {
   turnCounter = 0;
   background.style.backgroundColor = "rgb(245 110 110)";
   automaticRow = 1;
+  timer.textContent = time;
   if (directRestart) {
     opponent
       ? loadBoardHandler(vsPlayerFillBoardHandler)
@@ -291,11 +300,13 @@ const restartHandler = (directRestart) => {
   setIntervalHandler(true);
 };
 
+const directRestart = () => {
+  restartHandler(true);
+};
+
 rulesBtn.addEventListener("click", rulesOpener);
 rulesCloser.addEventListener("click", backToMenu);
 vsPlayerBtn.addEventListener("click", gameOpener);
 vsBotBtn.addEventListener("click", gameOpener);
 menuBtn.addEventListener("click", backToMenu);
-restartBtn.addEventListener("click", () => {
-  restartHandler(true);
-});
+restartBtn.addEventListener("click", directRestart);
