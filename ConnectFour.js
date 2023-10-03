@@ -28,6 +28,8 @@ const setIntervalHandler = (restarted) => {
 
       if (time === 0) {
         automaticFillBoardHandler();
+        opponent ? null : botMoveHandler();
+
         clearInterval(interval);
       }
       if (restarted) {
@@ -101,18 +103,22 @@ const vsPlayerFillBoardHandler = (evt) => {
   setIntervalHandler(false);
 };
 
-const vsBotFillBoardHandler = (evt) => {
-  const botTime = Math.floor(Math.random() * 10000);
-  vsPlayerFillBoardHandler(evt),
-    board.childNodes.forEach((child) => {
-      child.removeEventListener("click", vsBotFillBoardHandler);
-    });
+const botMoveHandler = () => {
+  const botTime = Math.floor(Math.random() * 29000);
+  board.childNodes.forEach((child) => {
+    child.removeEventListener("click", vsBotFillBoardHandler);
+  });
   setTimeout(() => {
     automaticFillBoardHandler();
     board.childNodes.forEach((child) => {
       child.addEventListener("click", vsBotFillBoardHandler);
     });
   }, botTime);
+};
+
+const vsBotFillBoardHandler = (evt) => {
+  vsPlayerFillBoardHandler(evt);
+  botMoveHandler();
 };
 
 const automaticFillBoardHandler = () => {
