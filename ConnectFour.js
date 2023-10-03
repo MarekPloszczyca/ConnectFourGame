@@ -30,8 +30,8 @@ const setIntervalHandler = (restarted) => {
         automaticFillBoardHandler();
         clearInterval(interval);
       }
-      if(restarted){
-        clearInterval(interval)
+      if (restarted) {
+        clearInterval(interval);
       }
     }, 1000);
   } else time = 31;
@@ -102,11 +102,17 @@ const vsPlayerFillBoardHandler = (evt) => {
 };
 
 const vsBotFillBoardHandler = (evt) => {
-  const botTime = Math.floor(Math.random() * 100);
+  const botTime = Math.floor(Math.random() * 10000);
   vsPlayerFillBoardHandler(evt),
-    setTimeout(() => {
-      automaticFillBoardHandler();
-    }, botTime);
+    board.childNodes.forEach((child) => {
+      child.removeEventListener("click", vsBotFillBoardHandler);
+    });
+  setTimeout(() => {
+    automaticFillBoardHandler();
+    board.childNodes.forEach((child) => {
+      child.addEventListener("click", vsBotFillBoardHandler);
+    });
+  }, botTime);
 };
 
 const automaticFillBoardHandler = () => {
