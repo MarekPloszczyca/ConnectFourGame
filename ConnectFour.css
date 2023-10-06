@@ -259,3 +259,34 @@ section {
   background-color: rgb(245 110 110);
   border-radius: 50%;
 }
+@keyframes menuButton {
+  from {
+    top: 0;
+    left: 0;
+  }
+  to {
+    top: 0.1rem;
+    left: 0.1rem;
+  }
+}
+@media (hover: hover) {
+  .menu-button:hover {
+    position: relative;
+    cursor: pointer;
+    animation-name: menuButton;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+  #back-icon:hover {
+    cursor: pointer;
+    background-color: rgb(252, 92, 92);
+  }
+  .spot:hover {
+    cursor: pointer;
+  }
+  .in-game-button:hover{
+    cursor:pointer;
+    background-color: rgb(93, 43, 201);
+  }
+}

@@ -39,6 +39,8 @@ const setIntervalHandler = (restarted) => {
   } else time = 31;
 };
 
+
+
 const loadBoardHandler = (type) => {
   if (board.childElementCount !== 42) {
     for (let i = 0; i < 42; i++) {
