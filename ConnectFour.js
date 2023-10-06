@@ -41,6 +41,7 @@ const stopInterval = () => {
 };
 
 const loadBoardHandler = (type) => {
+  stopInterval();
   if (board.childElementCount !== 42) {
     for (let i = 0; i < 42; i++) {
       const place = document.createElement("div");
@@ -267,7 +268,6 @@ const backToMenu = () => {
     visibilityHandler.call(game);
     visibilityHandler.call(content);
     restartHandler(false);
-    stopInterval();
   }
 };
 const gameOpener = (evt) => {
@@ -298,7 +298,7 @@ const restartHandler = (directRestart) => {
       ? loadBoardHandler(vsPlayerFillBoardHandler)
       : loadBoardHandler(vsBotFillBoardHandler);
   }
-  stopInterval();
+
 };
 
 const directRestart = () => {
