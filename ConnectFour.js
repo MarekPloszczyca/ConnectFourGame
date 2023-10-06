@@ -15,31 +15,30 @@ let columns = [[], [], [], [], [], [], []];
 let redSpots = [];
 let yellowSpots = [];
 let turnCounter = 0;
-let time = 0;
+let time = 5;
 let automaticRow = 1;
 let opponent;
+let interval;
 
-const setIntervalHandler = (restarted) => {
+const intervalFunction = () => {
+  time--;
+  timer.textContent = time;
+
   if (time === 0) {
-    time = 31;
-    const interval = setInterval(() => {
-      time--;
-      timer.textContent = time;
-
-      if (time === 0) {
-        automaticFillBoardHandler();
-        opponent ? null : botMoveHandler();
-
-        clearInterval(interval);
-      }
-      if (restarted) {
-        return clearInterval(interval);
-      }
-    }, 1000);
-  } else time = 31;
+    automaticFillBoardHandler();
+    opponent ? null : botMoveHandler();
+    time = 5;
+  }
 };
 
+const startInterval = () => {
+  time = 5;
+  interval = setInterval(intervalFunction, 1000);
+};
 
+const stopInterval = () => {
+  clearInterval(interval);
+};
 
 const loadBoardHandler = (type) => {
   if (board.childElementCount !== 42) {
@@ -52,8 +51,7 @@ const loadBoardHandler = (type) => {
     }
   }
   timer.textContent = time;
-
-  setIntervalHandler(false);
+  startInterval();
 };
 
 const vsPlayerFillBoardHandler = (evt) => {
@@ -101,8 +99,7 @@ const vsPlayerFillBoardHandler = (evt) => {
       turnCounter++;
     }
   }
-
-  setIntervalHandler(false);
+  time = 5;
 };
 
 const botMoveHandler = () => {
@@ -145,7 +142,7 @@ const automaticFillBoardHandler = () => {
     if (turnCounter % 2 === 0) {
       background.style.backgroundColor = "rgb(236 202 53)";
       board.children[board.children.length - number].classList.add("red-spot");
-      setIntervalHandler(false);
+      time = 5;
       redSpots.unshift([6 - automaticRow, 7 * automaticRow - number]);
       columnResultHandler(
         redSpots.filter((spots) => spots[1] === redSpots[0][1]),
@@ -161,7 +158,7 @@ const automaticFillBoardHandler = () => {
       board.children[board.children.length - number].classList.add(
         "yellow-spot"
       );
-      setIntervalHandler(false);
+      time = 5;
       yellowSpots.unshift([6 - automaticRow, 7 * automaticRow - number]);
       columnResultHandler(
         yellowSpots.filter((spots) => spots[1] === yellowSpots[0][1]),
@@ -177,6 +174,11 @@ const automaticFillBoardHandler = () => {
   turnCounter++;
 };
 
+const winnerDisplayHandler = (winner) => {
+  stopInterval();
+  timer.textContent = `${winner} player won!`;
+};
+
 const columnResultHandler = (color, winner) => {
   let columnCounter = 0;
   let recent = color[0][0];
@@ -188,9 +190,7 @@ const columnResultHandler = (color, winner) => {
         columnCounter++;
       }
     }
-    columnCounter === 4
-      ? (timer.textContent = `${winner} player won!`)
-      : (columnCounter = 0);
+    columnCounter === 4 ? winnerDisplayHandler(winner) : (columnCounter = 0);
   }
 };
 
@@ -206,9 +206,7 @@ const rowResultHandler = (color, winner) => {
         rowCounter++;
       }
     }
-    rowCounter === 4
-      ? (timer.textContent = `${winner} player won!`)
-      : (rowCounter = 0);
+    rowCounter === 4 ? winnerDisplayHandler(winner) : (rowCounter = 0);
   }
 };
 
@@ -230,7 +228,7 @@ const horizontalResultHandler = (color, winner) => {
       }
     }
     horizontalCounter === 4
-      ? (timer.textContent = `${winner} player won!`)
+      ? winnerDisplayHandler(winner)
       : (horizontalCounter = 0);
   }
   for (let l = 0; l <= 3; l++) {
@@ -245,7 +243,7 @@ const horizontalResultHandler = (color, winner) => {
       }
     }
     horizontalCounter === 4
-      ? (timer.textContent = `${winner} player won!`)
+      ? winnerDisplayHandler(winner)
       : (horizontalCounter = 0);
   }
 };
@@ -269,6 +267,7 @@ const backToMenu = () => {
     visibilityHandler.call(game);
     visibilityHandler.call(content);
     restartHandler(false);
+    stopInterval();
   }
 };
 const gameOpener = (evt) => {
@@ -299,7 +298,7 @@ const restartHandler = (directRestart) => {
       ? loadBoardHandler(vsPlayerFillBoardHandler)
       : loadBoardHandler(vsBotFillBoardHandler);
   }
-  setIntervalHandler(true);
+  stopInterval();
 };
 
 const directRestart = () => {
