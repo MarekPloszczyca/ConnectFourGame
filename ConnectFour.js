@@ -10,12 +10,13 @@ const board = document.getElementById("board");
 const game = document.querySelector("section");
 const timer = document.querySelector(".timer");
 const background = document.getElementById("background");
+const opponentTurn = document.getElementById("opponent");
 
 let columns = [[], [], [], [], [], [], []];
 let redSpots = [];
 let yellowSpots = [];
 let turnCounter = 0;
-let time = 5;
+let time = 30;
 let automaticRow = 1;
 let opponent;
 let interval;
@@ -27,12 +28,15 @@ const intervalFunction = () => {
   if (time === 0) {
     automaticFillBoardHandler();
     opponent ? null : botMoveHandler();
-    time = 5;
+    time = 31;
+  }
+  if (game.style.display !== "block") {
+    stopInterval();
   }
 };
 
 const startInterval = () => {
-  time = 5;
+  time = 31;
   interval = setInterval(intervalFunction, 1000);
 };
 
@@ -100,16 +104,20 @@ const vsPlayerFillBoardHandler = (evt) => {
       turnCounter++;
     }
   }
-  time = 5;
+  time = 31;
 };
 
 const botMoveHandler = () => {
-  const botTime = Math.floor(Math.random() * 29000);
+  const botTime = Math.floor(Math.random() * 20000);
   board.childNodes.forEach((child) => {
     child.removeEventListener("click", vsBotFillBoardHandler);
   });
   restartBtn.removeEventListener("click", directRestart);
   menuBtn.removeEventListener("click", backToMenu);
+  game.style.cursor = "wait";
+  restartBtn.style.cursor = "wait";
+  menuBtn.style.cursor = "wait";
+  opponentTurn.style.display = "block";
   setTimeout(() => {
     automaticFillBoardHandler();
     board.childNodes.forEach((child) => {
@@ -117,6 +125,10 @@ const botMoveHandler = () => {
     });
     restartBtn.addEventListener("click", directRestart);
     menuBtn.addEventListener("click", backToMenu);
+    game.style.cursor = "auto";
+    restartBtn.style.cursor = "auto";
+    menuBtn.style.cursor = "auto";
+    opponentTurn.style.display = "none";
   }, botTime);
 };
 
@@ -143,7 +155,7 @@ const automaticFillBoardHandler = () => {
     if (turnCounter % 2 === 0) {
       background.style.backgroundColor = "rgb(236 202 53)";
       board.children[board.children.length - number].classList.add("red-spot");
-      time = 5;
+      time = 31;
       redSpots.unshift([6 - automaticRow, 7 * automaticRow - number]);
       columnResultHandler(
         redSpots.filter((spots) => spots[1] === redSpots[0][1]),
@@ -159,7 +171,7 @@ const automaticFillBoardHandler = () => {
       board.children[board.children.length - number].classList.add(
         "yellow-spot"
       );
-      time = 5;
+      time = 31;
       yellowSpots.unshift([6 - automaticRow, 7 * automaticRow - number]);
       columnResultHandler(
         yellowSpots.filter((spots) => spots[1] === yellowSpots[0][1]),
@@ -176,8 +188,18 @@ const automaticFillBoardHandler = () => {
 };
 
 const winnerDisplayHandler = (winner) => {
+  opponent
+    ? board.childNodes.forEach((child) => {
+        child.removeEventListener("click", vsPlayerFillBoardHandler);
+      })
+    : board.childNodes.forEach((child) => {
+        child.removeEventListener("click", vsBotFillBoardHandler);
+      });
   stopInterval();
+  timer.style.fontSize = "1.29rem";
+  timer.style.padding = "0.5rem";
   timer.textContent = `${winner} player won!`;
+  background.style.display = "none";
 };
 
 const columnResultHandler = (color, winner) => {
@@ -293,12 +315,14 @@ const restartHandler = (directRestart) => {
   background.style.backgroundColor = "rgb(245 110 110)";
   automaticRow = 1;
   timer.textContent = time;
+  timer.style.fontSize = "2rem";
+  timer.style.padding = "0.8rem";
+  background.style.display = "block";
   if (directRestart) {
     opponent
       ? loadBoardHandler(vsPlayerFillBoardHandler)
       : loadBoardHandler(vsBotFillBoardHandler);
   }
-
 };
 
 const directRestart = () => {

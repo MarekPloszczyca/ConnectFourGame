@@ -213,6 +213,25 @@ section {
   border: 0.2rem solid black;
   box-shadow: 0 0.3rem;
 }
+@keyframes opponent {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+#opponent {
+  display:none;
+  position: relative;
+  text-align: center;
+  bottom: 30.5rem;
+  font-weight: bold;
+  animation-name: opponent;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
 .spot {
   width: 1.8rem;
   height: 1.8rem;
@@ -246,7 +265,7 @@ section {
 }
 
 #timer h4 {
-  margin-top: 1rem;
+  padding: 0.8rem;
   font-size: 2rem;
 }
 #background {
@@ -285,8 +304,8 @@ section {
   .spot:hover {
     cursor: pointer;
   }
-  .in-game-button:hover{
-    cursor:pointer;
+  .in-game-button:hover {
+    cursor: pointer;
     background-color: rgb(93, 43, 201);
   }
 }
