@@ -126,15 +126,15 @@ const botMoveHandler = () => {
     restartBtn.addEventListener("click", directRestart);
     menuBtn.addEventListener("click", backToMenu);
     game.style.cursor = "auto";
-    restartBtn.style.cursor = "auto";
-    menuBtn.style.cursor = "auto";
+    restartBtn.style.cursor = "pointer";
+    menuBtn.style.cursor = "pointer";
     opponentTurn.style.display = "none";
   }, botTime);
 };
 
 const vsBotFillBoardHandler = (evt) => {
   vsPlayerFillBoardHandler(evt);
-  botMoveHandler();
+    botMoveHandler();
 };
 
 const automaticFillBoardHandler = () => {
