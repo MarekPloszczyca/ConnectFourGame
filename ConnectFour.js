@@ -134,7 +134,7 @@ const botMoveHandler = () => {
 
 const vsBotFillBoardHandler = (evt) => {
   vsPlayerFillBoardHandler(evt);
-    botMoveHandler();
+  botMoveHandler();
 };
 
 const automaticFillBoardHandler = () => {
@@ -198,7 +198,9 @@ const winnerDisplayHandler = (winner) => {
   stopInterval();
   timer.style.fontSize = "1.29rem";
   timer.style.padding = "0.5rem";
-  timer.textContent = `${winner} player won!`;
+  winner === "DRAW"
+    ? (timer.textContent = "DRAW")
+    : (timer.textContent = `${winner} player won!`);
   background.style.display = "none";
 };
 
@@ -213,7 +215,11 @@ const columnResultHandler = (color, winner) => {
         columnCounter++;
       }
     }
-    columnCounter === 4 ? winnerDisplayHandler(winner) : (columnCounter = 0);
+    columnCounter === 4
+      ? winnerDisplayHandler(winner)
+      : redSpots.concat(yellowSpots).length === 42
+      ? winnerDisplayHandler("DRAW")
+      : (columnCounter = 0);
   }
 };
 
@@ -229,7 +235,11 @@ const rowResultHandler = (color, winner) => {
         rowCounter++;
       }
     }
-    rowCounter === 4 ? winnerDisplayHandler(winner) : (rowCounter = 0);
+    rowCounter === 4
+      ? winnerDisplayHandler(winner)
+      : redSpots.concat(yellowSpots).length === 42
+      ? winnerDisplayHandler("DRAW")
+      : (rowCounter = 0);
   }
 };
 
@@ -252,6 +262,8 @@ const horizontalResultHandler = (color, winner) => {
     }
     horizontalCounter === 4
       ? winnerDisplayHandler(winner)
+      : redSpots.concat(yellowSpots).length === 42
+      ? winnerDisplayHandler("DRAW")
       : (horizontalCounter = 0);
   }
   for (let l = 0; l <= 3; l++) {
@@ -267,6 +279,8 @@ const horizontalResultHandler = (color, winner) => {
     }
     horizontalCounter === 4
       ? winnerDisplayHandler(winner)
+      : redSpots.concat(yellowSpots).length === 42
+      ? winnerDisplayHandler("DRAW")
       : (horizontalCounter = 0);
   }
 };
