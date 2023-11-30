@@ -1,13 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap");
 
 * {
   margin: 0;
   padding: 0;
 }
 body {
-  background: rgb(130 72 254);
-  font-family: 'Comic Neue', cursive;
- font-weight: bold;
+  background: #8248fe;
+  font-family: "Comic Neue", cursive;
+  font-weight: bold;
 }
 
 .icon-circle {
@@ -54,7 +54,7 @@ span {
 .face {
   width: 1.7rem;
   height: 1.7rem;
-  border: solid;
+  border: solid 0.15rem;
   border-radius: 50%;
   position: relative;
   left: 3rem;
@@ -92,7 +92,7 @@ span {
   left: 0.4rem;
 }
 .red-faces {
-  left: 4.9rem !important;
+  left: 4.5rem !important;
 }
 #rules {
   display: none;
@@ -226,7 +226,7 @@ section {
   }
 }
 #opponent {
-  display:none;
+  display: none;
   position: relative;
   text-align: center;
   bottom: 30.5rem;
@@ -269,6 +269,8 @@ section {
 }
 
 #timer h4 {
+  position: relative;
+  top:0.3rem;
   padding: 0.8rem;
   font-size: 2rem;
 }
